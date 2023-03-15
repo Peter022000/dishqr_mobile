@@ -7,29 +7,31 @@ import AboutUs from '../screens/AbousUs';
 
 const Tab = createBottomTabNavigator();
 
-const CustomTarBarButton = ({children, onPress}) => (
-    <TouchableOpacity
-        onPress={onPress}
-        style={{
-            top: -30,
-            justifyContent: 'center',
-            alignItems: 'center',
-            ...style.shadow
-        }}
-    >
-        <View style={{
-            width: 70,
-            height: 70,
-            borderRadius: 35,
-            backgroundColor: '#e32f45'
-        }}>
-            {children}
-        </View>
-    </TouchableOpacity>
-
-);
 
 const Tabs = () =>{
+
+    const CustomTarBarButton = ({children}) => (
+        <TouchableOpacity
+            onPress={() => {test()}}
+            style={{
+                top: -30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                ...style.shadow
+            }}
+        >
+            <View style={{
+                width: 70,
+                height: 70,
+                borderRadius: 35,
+                backgroundColor: '#e32f45'
+            }}>
+                {children}
+            </View>
+        </TouchableOpacity>
+
+    );
+
 
     const test = () =>{
         console.log("QR")
