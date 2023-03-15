@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () =>{
 
-    const CustomTarBarButton = ({children}) => (
+    const CustomTabBarButton = ({children}) => (
         <TouchableOpacity
             onPress={() => {test()}}
             style={{
@@ -99,7 +99,7 @@ const Tabs = () =>{
                     />
                 ),
                 tabBarButton: (props) => (
-                    <CustomTarBarButton {...props}/>
+                    <CustomTabBarButton {...props}/>
                 )
             }}/>
 
