@@ -146,21 +146,21 @@ const Menu = () => {
                         JSON.parse(JSON.stringify(soups)).map((dish, index) => {
                             return(
                                 <View key={index + '_soup'} style={styles.dishContainer}>
-                                    <View style={styles.dishHeader}>
+                                    <View style={styles.dishDescription}>
                                         <Text style={styles.dishName}>{dish.name}</Text>
-                                        <TouchableOpacity>
-                                            <Image
-                                                source={require("../assets/icons/add.png")}
-                                                resizeMode={'contain'}
-                                                style={{
-                                                    width: 30,
-                                                    height: 30,
-                                                }}
-                                            />
-                                        </TouchableOpacity>
+                                        <Text style={styles.dishPrice}>{dish.price} zł</Text>
+                                        <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
                                     </View>
-                                    <Text style={styles.dishPrice}>{dish.price} zł</Text>
-                                    <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
+                                    <TouchableOpacity style={styles.dishAction}>
+                                        <Image
+                                            source={require("../assets/icons/add.png")}
+                                            resizeMode={'contain'}
+                                            style={{
+                                                width: 30,
+                                                height: 30,
+                                            }}
+                                        />
+                                    </TouchableOpacity>
                                 </View>
                             )
                         }) : <></>
@@ -174,22 +174,22 @@ const Menu = () => {
                     {(selection === 1) ?
                         JSON.parse(JSON.stringify(mainCourse)).map((dish, index) => {
                             return(
-                                <View key={index + '_soup'} style={styles.dishContainer}>
-                                    <View style={styles.dishHeader}>
+                                <View key={index + '_main'} style={styles.dishContainer}>
+                                    <View style={styles.dishDescription}>
                                         <Text style={styles.dishName}>{dish.name}</Text>
-                                        <TouchableOpacity>
-                                            <Image
-                                                source={require("../assets/icons/add.png")}
-                                                resizeMode={'contain'}
-                                                style={{
-                                                    width: 30,
-                                                    height: 30,
-                                                }}
-                                            />
-                                        </TouchableOpacity>
+                                        <Text style={styles.dishPrice}>{dish.price} zł</Text>
+                                        <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
                                     </View>
-                                    <Text style={styles.dishPrice}>{dish.price} zł</Text>
-                                    <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
+                                    <TouchableOpacity style={styles.dishAction}>
+                                        <Image
+                                            source={require("../assets/icons/add.png")}
+                                            resizeMode={'contain'}
+                                            style={{
+                                                width: 30,
+                                                height: 30,
+                                            }}
+                                        />
+                                    </TouchableOpacity>
                                 </View>
                             )
                         }) : <></>
@@ -227,18 +227,25 @@ const styles = StyleSheet.create({
     dishContainer: {
         padding: 10,
         width: '100%',
+        flexDirection: 'row'
     },
-    dishHeader: {
-        flexDirection: 'row',
-        alignItems: 'center'
+    dishDescription: {
+        flexDirection: 'column',
+        width: '80%'
+    },
+    dishAction: {
+        width: '20%',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent:'center'
     },
     dishName: {
         fontSize: 24,
         margin: 5,
-        width: '80%'
+        width: '80%',
     },
     dishAdd: {
-        width: '20%'
+        width: '20%',
     },
     dishPrice: {
         fontSize: 18,
