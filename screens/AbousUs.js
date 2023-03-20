@@ -5,7 +5,7 @@ const AboutUs = () => {
 
     return (
         <View>
-            <Text>Cart</Text>
+            <Text>About us</Text>
         </View>
     );
 };
