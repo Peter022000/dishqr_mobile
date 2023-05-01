@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const Cart = () => {
+const Cart = (props) => {
 
     return (
         <View>
