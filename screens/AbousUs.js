@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const AboutUs = () => {
+const AboutUs = (props) => {
 
     return (
         <View>

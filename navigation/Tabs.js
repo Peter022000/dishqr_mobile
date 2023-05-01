@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () =>{
 
-    const CustomTabBarButton = ({children}) => (
+    const CustomTabBarButton = ({children, onPress}) => (
         <TouchableOpacity
             onPress={() => {test()}}
             style={{
@@ -29,7 +29,6 @@ const Tabs = () =>{
                 {children}
             </View>
         </TouchableOpacity>
-
     );
 
 
@@ -67,7 +66,7 @@ const Tabs = () =>{
                                 tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 16}}>Instrukcja</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>Instrukcja</Text>
                     </View>)
             }}/>
             <Tab.Screen name={"Menu"} component={Menu} options={{
@@ -82,7 +81,7 @@ const Tabs = () =>{
                                 tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 16}}>Menu</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>Menu</Text>
                     </View>)
             }}/>
 
@@ -115,7 +114,7 @@ const Tabs = () =>{
                                 tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 16}}>Koszyk</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>Koszyk</Text>
                     </View>)
             }}/>
             <Tab.Screen name={"O nas"} component={AboutUs} options={{
@@ -130,7 +129,7 @@ const Tabs = () =>{
                                 tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 16}}>O nas</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>O nas</Text>
                     </View>)
             }}/>
 
@@ -139,16 +138,16 @@ const Tabs = () =>{
 }
 
 const style = StyleSheet.create({
-   shadow: {
-       shadowColor: '#7F5DF0',
-       shadowOffset: {
-           width: 0,
-           height: 10
-       },
-       shadowOpacity: 0.25,
-       shadowRadius: 3.5,
-       elevation: 5
-   }
+    shadow: {
+        shadowColor: '#7F5DF0',
+        shadowOffset: {
+            width: 0,
+            height: 10
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5
+    }
 });
 
 export default Tabs;
