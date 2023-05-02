@@ -1,12 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, Text, View, Image, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react'
+import {
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    View,
+    Image,
+    ActivityIndicator,
+    RefreshControl,
+} from 'react-native';
+import { useDispatch, useSelector } from "react-redux"
+import { addToCart } from "./CartReducer"
 
 const Menu = (props) => {
 
-    const [selection, setSelection] = useState(-1);
-    const [soups, setSoups] = useState([]);
-    const [mainCourse, setMainCourse] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+    const [selection, setSelection] = useState(-1)
+    const [soups, setSoups] = useState({})
+    const [mainCourse, setMainCourse] = useState({})
+    const [isLoading, setLoading] = useState(true)
+    const [refreshing, setRefreshing] = React.useState(false)
+
+    const dispatch = useDispatch();
+
+    const addItemToCart = (item) => {
+        dispatch(addToCart(item));
+    };
 
     const getDishes = async () => {
 
@@ -15,8 +33,8 @@ const Menu = (props) => {
             const response = await fetch(string);
             const json = await response.json();
 
-            setSoups(json.filter(t => t.type === "soup"))
-            setMainCourse(json.filter(t => t.type === "mainCourse"))
+            setSoups(json.filter(t => t.dishType === "soup"))
+            setMainCourse(json.filter(t => t.dishType === "mainCourse"))
         } catch (error) {
             console.error(error);
         } finally {
@@ -24,16 +42,24 @@ const Menu = (props) => {
         }
     }
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        let a = getDishes()
+        setRefreshing(false);
+    }, []);
+
 
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
-            console.log("tal")
             let a = getDishes()
         });
     }, [props.navigation]);
 
     return (
-        <ScrollView>
+        <ScrollView
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
             <View style={styles.container}>
                 <View style={styles.menuHeaderContainer}>
                     <Text style={styles.menuHeader}>Menu</Text>
@@ -55,7 +81,7 @@ const Menu = (props) => {
                                                 <Text style={styles.dishPrice}>{dish.price} zł</Text>
                                                 <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
                                             </View>
-                                            <TouchableOpacity style={styles.dishAction}>
+                                            <TouchableOpacity onPress={() =>{addItemToCart(dish)}} style={styles.dishAction}>
                                                 <Image
                                                     source={require("../assets/icons/add.png")}
                                                     resizeMode={'contain'}
@@ -85,7 +111,7 @@ const Menu = (props) => {
                                                 <Text style={styles.dishPrice}>{dish.price} zł</Text>
                                                 <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
                                             </View>
-                                            <TouchableOpacity style={styles.dishAction}>
+                                            <TouchableOpacity onPress={() =>{addItemToCart(dish)}} style={styles.dishAction}>
                                                 <Image
                                                     source={require("../assets/icons/add.png")}
                                                     resizeMode={'contain'}
@@ -109,58 +135,71 @@ const Menu = (props) => {
 };
 
 const styles = StyleSheet.create({
-    container : {
-        padding: 20,
-        marginBottom: 80,
-        flexDirection: 'column',
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+        paddingBottom: 120
     },
     menuHeaderContainer: {
-        justifyContent: 'center',
+        marginTop: 50,
+        marginBottom: 20,
         alignItems: 'center',
     },
     menuHeader: {
-        fontSize: 26,
-        fontStyle: 'italic',
-        fontWeight: 'bold'
+        fontSize: 36,
+        fontWeight: 'bold',
+        color: '#333333',
     },
     categoryContainer: {
-        width: '100%',
-        borderRadius: 30,
-        borderWidth: 1,
-        borderColor: 'black',
-        padding: 15,
-        marginBottom: 50
+        backgroundColor: '#ffffff',
+        borderRadius: 20,
+        marginHorizontal: 20,
+        marginBottom: 30,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
     },
     dishContainer: {
-        padding: 10,
-        width: '100%',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
     },
     dishDescription: {
-        flexDirection: 'column',
-        width: '80%'
-    },
-    dishAction: {
-        width: '20%',
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent:'center'
+        flex: 1,
+        marginRight: 20,
     },
     dishName: {
-        fontSize: 24,
-        margin: 5,
-        width: '80%',
-    },
-    dishAdd: {
-        width: '20%',
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#333333',
+        marginBottom: 5,
     },
     dishPrice: {
         fontSize: 18,
-        margin: 5
+        color: '#666666',
+        marginBottom: 5,
     },
     dishIngredients: {
-        fontSize: 15,
-        margin: 5
+        fontSize: 16,
+        color: '#999999',
+        marginBottom: 10,
+    },
+    dishAction: {
+        backgroundColor: '#FFD600',
+        borderRadius: 15,
+        width: 45,
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    dishActionIcon: {
+        tintColor: '#ffffff',
     }
 });
 
