@@ -9,7 +9,7 @@ import {
     ActivityIndicator,
     RefreshControl,
 } from 'react-native';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addToCart } from "./CartReducer"
 
 const Menu = (props) => {
@@ -18,7 +18,7 @@ const Menu = (props) => {
     const [soups, setSoups] = useState({})
     const [mainCourse, setMainCourse] = useState({})
     const [isLoading, setLoading] = useState(true)
-    const [refreshing, setRefreshing] = React.useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
     const dispatch = useDispatch();
 
@@ -51,16 +51,17 @@ const Menu = (props) => {
 
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
-            let a = getDishes()
+            let a = getDishes();
         });
     }, [props.navigation]);
 
     return (
         <ScrollView
+            contentContainerStyle={styles.container}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-            <View style={styles.container}>
+            <View>
                 <View style={styles.menuHeaderContainer}>
                     <Text style={styles.menuHeader}>Menu</Text>
                 </View>
@@ -136,9 +137,9 @@ const Menu = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#f5f5f5',
-        paddingBottom: 120
+        paddingBottom: 110
     },
     menuHeaderContainer: {
         marginTop: 50,
