@@ -43,7 +43,7 @@ const Tabs = () =>{
                 headerShown: false,
                 tabBarStyle: {
                     position: 'absolute',
-                    bottom: 25,
+                    bottom: 15,
                     left: 15,
                     right: 15,
                     elevation: 0,
