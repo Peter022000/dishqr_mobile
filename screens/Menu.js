@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -9,16 +9,16 @@ import {
     ActivityIndicator,
     RefreshControl,
 } from 'react-native';
-import { useDispatch } from "react-redux"
-import { addToCart } from "./CartReducer"
+import { useDispatch } from "react-redux";
+import { addToCart } from "./CartReducer";
 
 const Menu = (props) => {
 
-    const [selection, setSelection] = useState(-1)
-    const [soups, setSoups] = useState({})
-    const [mainCourse, setMainCourse] = useState({})
-    const [isLoading, setLoading] = useState(true)
-    const [refreshing, setRefreshing] = useState(false)
+    const [selection, setSelection] = useState(-1);
+    const [soups, setSoups] = useState({});
+    const [mainCourse, setMainCourse] = useState({});
+    const [isLoading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -33,8 +33,8 @@ const Menu = (props) => {
             const response = await fetch(string);
             const json = await response.json();
 
-            setSoups(json.filter(t => t.dishType === "soup"))
-            setMainCourse(json.filter(t => t.dishType === "mainCourse"))
+            setSoups(json.filter(t => t.dishType === "soup"));
+            setMainCourse(json.filter(t => t.dishType === "mainCourse"));
         } catch (error) {
             console.error(error);
         } finally {

@@ -8,8 +8,8 @@ import Dialog from "react-native-dialog";
 
 const Cart = (props) => {
 
-    const [tableNumber, setTableNumber] = useState('')
-    const [paymentMethod, setPaymentMethod] = useState('')
+    const [tableNumber, setTableNumber] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
 
     const dispatch = useDispatch();
@@ -34,8 +34,8 @@ const Cart = (props) => {
     //     setCost((cart.reduce(function (sum, cost) {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2))
     // }, [cart]);
 
-    const cart = useSelector((state) => state.cart.cart)
-    const cost = (cart.reduce((sum, cost) => {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2)
+    const cart = useSelector((state) => state.cart.cart);
+    const cost = (cart.reduce((sum, cost) => {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2);
 
     const sendOrder = async () => {
         try {
@@ -57,9 +57,9 @@ const Cart = (props) => {
                 type: 'success',
                 text1: 'Złożono zamówienie',
             });
-            dispatch(clearCart())
-            setTableNumber('')
-            setPaymentMethod('')
+            dispatch(clearCart());
+            setTableNumber('');
+            setPaymentMethod('');
         } catch (error) {
             console.error(error);
             Toast.show({
