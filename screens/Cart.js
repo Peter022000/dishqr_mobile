@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import store from '../store';
 import {clearCart, decrementQty, incrementQty} from './CartReducer';
 import { useDispatch, useSelector } from "react-redux"
 import Toast from 'react-native-toast-message';
