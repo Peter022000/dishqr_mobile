@@ -5,8 +5,12 @@ export const cartSlice = createSlice({
     name:'cart',
     initialState:{
         cart:[],
+        tableNumber: ''
     },
     reducers:{
+        setTableNumber: (state,action) => {
+            state.tableNumber = action.payload;
+        },
         addToCart : (state,action) => {
             const itemPresent = state.cart.find((item) => item.id === action.payload.id)
             if(itemPresent){
@@ -45,6 +49,6 @@ export const cartSlice = createSlice({
 })
 
 
-export const {addToCart,removeFromCart,incrementQty,decrementQty, clearCart} = cartSlice.actions;
+export const {addToCart,removeFromCart,incrementQty,decrementQty, clearCart, setTableNumber} = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
 import {Provider} from 'react-redux';
-import store from './store';
+import store from './store/store';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 
 const toastConfig = {
