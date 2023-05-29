@@ -27,7 +27,6 @@ const Menu = (props) => {
     };
 
     const getDishes = async () => {
-
         try {
             let string = 'http://192.168.1.2:8080/dishes/getAllDishes';
             const response = await fetch(string);
