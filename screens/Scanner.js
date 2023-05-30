@@ -10,7 +10,7 @@ import Toast from 'react-native-toast-message';
 const Scanner = (props) => {
     const [hasPermission, setHasPermission] = useState(false);
     const [scanActive, setScanActive] = useState(true);
-    const [scanStatus, setScanStatus] = useState(true);
+    const [error, setError] = useState(false);
     const [qrCode, setQrCode] = useState('');
     const devices = useCameraDevices();
     const device = devices.back;
@@ -50,8 +50,15 @@ const Scanner = (props) => {
             const response = await fetch('http://192.168.1.2:8080/qrCode/getValue/'+id, {
                 method: 'GET',
             });
-            const json = await response.json();
-            setQrCode(json.qrCode);
+
+            if(response.ok) {
+                const json = await response.json();
+                setQrCode(json.qrCode);
+            } else {
+                setScanActive(false);
+                setError(true);
+            }
+
         } catch (error) {
             console.error(error);
         }
@@ -68,6 +75,7 @@ const Scanner = (props) => {
     };
 
     const handleRepeatScan = () => {
+        setError(false);
         setScanActive(true);
         setQrCode('');
     };
@@ -95,6 +103,21 @@ const Scanner = (props) => {
         );
     };
 
+    const displayError = () => {
+        return (
+            <View style={styles.scannedCodeContainer}>
+                <Text style={styles.scannedCode}>Błędny kod QR</Text>
+                <TouchableOpacity
+                    style={styles.repeatButton}
+                    onPress={handleRepeatScan}
+                >
+                    <Text style={styles.buttonText}>Powtórz skanowanie</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+
     const displayScannedCode = () => {
         return (
             <View style={styles.scannedCodeContainer}>
@@ -116,7 +139,7 @@ const Scanner = (props) => {
         );
     };
 
-    return <>{scanActive ? displayScanner() : displayScannedCode()}</>;
+    return <>{scanActive ? displayScanner() : (error ? displayError() : displayScannedCode())}</>;
 };
 
 const styles = StyleSheet.create({
