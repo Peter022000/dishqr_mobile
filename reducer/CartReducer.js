@@ -13,9 +13,14 @@ const CartReducer = (state = initialState, action) => {
                 tableNoId: action.payload.data.tableNoId,
                 paymentMethod: action.payload.data.paymentMethod,
                 cost: action.payload.data.cost
-                // Możesz dodać tu także obsługę danych z serwera, jeśli są potrzebne
             };
-        // Dodaj inne przypadki switcha w razie potrzeby
+        case 'REMOVE_FROM_CART':
+            return {
+                dishes: action.payload.data.order,
+                tableNoId: action.payload.data.tableNoId,
+                paymentMethod: action.payload.data.paymentMethod,
+                cost: action.payload.data.cost
+            };
         default:
             return state;
     }

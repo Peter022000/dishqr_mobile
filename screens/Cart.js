@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {clearCart, decrementQty, incrementQty, setTableNumber} from '../reducer/CartReducer';
-import { useDispatch, useSelector } from "react-redux"
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, removeFromCart} from '../actions/actions';
 
 const Cart = (props) => {
 
@@ -65,6 +65,14 @@ const Cart = (props) => {
         }
     };
 
+    const addItemToCart = (item) => {
+        dispatch(addToCart(item.id, "fromCart"));
+    };
+
+    const removeItemFromCart = (item) => {
+        dispatch(removeFromCart(item.id));
+    };
+
     const validate = () => {
         if(cart.length === 0) {
             Toast.show({
@@ -102,8 +110,6 @@ const Cart = (props) => {
                         <View>
                             {
                                 cart.map((dish, index) => {
-                                    console.log(dish.dish.name)
-
                                     return (
                                         <View key={index} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
@@ -112,13 +118,13 @@ const Cart = (props) => {
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
-                                                    dispatch(decrementQty(dish))
+                                                    removeItemFromCart(dish.dish)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>-</Text>
                                                 </TouchableOpacity>
                                                 <Text style={styles.quantity}>{dish.quantity}</Text>
                                                 <TouchableOpacity onPress={() => {
-                                                    dispatch(incrementQty(dish))
+                                                    addItemToCart(dish.dish)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>+</Text>
                                                 </TouchableOpacity>

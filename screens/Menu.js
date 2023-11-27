@@ -23,7 +23,7 @@ const Menu = (props) => {
     const dispatch = useDispatch();
 
     const addItemToCart = (item) => {
-        dispatch(addToCart(item.id));
+        dispatch(addToCart(item.id, "fromMenu"));
     };
 
     const getDishes = async () => {
