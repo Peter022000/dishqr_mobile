@@ -4,6 +4,7 @@ import Menu from '../screens/Menu';
 import Cart from '../screens/Cart';
 import Home from '../screens/Home';
 import AboutUs from '../screens/AbousUs';
+import Scanner from '../screens/Scanner';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +13,7 @@ const Tabs = () =>{
 
     const CustomTabBarButton = ({children, onPress}) => (
         <TouchableOpacity
-            onPress={() => {test()}}
+            onPress={onPress}
             style={{
                 top: -30,
                 justifyContent: 'center',
@@ -85,7 +86,7 @@ const Tabs = () =>{
                     </View>)
             }}/>
 
-            <Tab.Screen name={"QR"} component={Home} options={{
+            <Tab.Screen name={"QR"} component={Scanner} options={{
                 tabBarIcon: ({focused}) => (
                     <Image
                         source={require('../assets/icons/qr.png')}

@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import store from '../store';
-import {clearCart, decrementQty, incrementQty} from './CartReducer';
+import {clearCart, decrementQty, incrementQty, setTableNumber} from '../reducer/CartReducer';
 import { useDispatch, useSelector } from "react-redux"
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 
 const Cart = (props) => {
 
-    const [tableNumber, setTableNumber] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
 
@@ -26,15 +24,8 @@ const Cart = (props) => {
         let a = sendOrder();
     };
 
-    //const [cart, setCart] = useState({})
-
-    // const [cost, setCost] = useState()
-    //
-    // useEffect(() => {
-    //     setCost((cart.reduce(function (sum, cost) {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2))
-    // }, [cart]);
-
     const cart = useSelector((state) => state.cart.cart);
+    const tableNumber = useSelector((state) => state.cart.tableNumber);
     const cost = (cart.reduce((sum, cost) => {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2);
 
     const sendOrder = async () => {
@@ -111,8 +102,7 @@ const Cart = (props) => {
                                         <View key={index + '_soup'} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
                                                 <Text style={styles.dishName}>{dish.name}</Text>
-                                                <Text
-                                                    style={styles.dishPrice}> {dish.price} x{dish.quantity}: {(dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                                <Text style={styles.dishPrice}> {dish.price} x{dish.quantity}: {(dish.price * dish.quantity).toFixed(2)} zł</Text>
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
@@ -150,13 +140,7 @@ const Cart = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.table}>
-                    <Text style={styles.tableTitle}>Numer stolika:</Text>
-                    <TextInput
-                        style={styles.tableInput}
-                        value={tableNumber}
-                        onChangeText={setTableNumber}
-                        keyboardType='numeric'
-                    />
+                    <Text style={styles.tableTitle}>Numer stolika: {tableNumber}</Text>
                 </View>
                 <TouchableOpacity onPress={() => validate()} style={styles.checkoutButton}>
                     <Text style={styles.checkoutButtonText}>Zamów</Text>

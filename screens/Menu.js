@@ -10,7 +10,7 @@ import {
     RefreshControl,
 } from 'react-native';
 import { useDispatch } from "react-redux";
-import { addToCart } from "./CartReducer";
+import { addToCart } from "../reducer/CartReducer";
 
 const Menu = (props) => {
 
@@ -27,7 +27,6 @@ const Menu = (props) => {
     };
 
     const getDishes = async () => {
-
         try {
             let string = 'http://192.168.1.2:8080/dishes/getAllDishes';
             const response = await fetch(string);
@@ -74,28 +73,27 @@ const Menu = (props) => {
 
                             {
                                 (selection === 0) ?
-                                soups.map((dish, index) => {
-                                    return(
-                                        <View key={index + '_soup'} style={styles.dishContainer}>
-                                            <View style={styles.dishDescription}>
-                                                <Text style={styles.dishName}>{dish.name}</Text>
-                                                <Text style={styles.dishPrice}>{dish.price} zł</Text>
-                                                <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
+                                    soups.map((dish, index) => {
+                                        return(
+                                            <View key={index + '_soups'} style={styles.dishContainer}>
+                                                <View style={styles.dishDescription}>
+                                                    <Text style={styles.dishName}>{dish.name}</Text>
+                                                    <Text style={styles.dishPrice}>{dish.price} zł</Text>
+                                                    <Text style={styles.dishIngredients}>{dish.ingredients.join(', ')}</Text>
+                                                </View>
+                                                <TouchableOpacity onPress={() =>{addItemToCart(dish)}} style={styles.dishAction}>
+                                                    <Image
+                                                        source={require("../assets/icons/add.png")}
+                                                        resizeMode={'contain'}
+                                                        style={{
+                                                            width: 30,
+                                                            height: 30,
+                                                        }}
+                                                    />
+                                                </TouchableOpacity>
                                             </View>
-                                            <TouchableOpacity onPress={() =>{addItemToCart(dish)}} style={styles.dishAction}>
-                                                <Image
-                                                    source={require("../assets/icons/add.png")}
-                                                    resizeMode={'contain'}
-                                                    style={{
-                                                        width: 30,
-                                                        height: 30,
-                                                    }}
-                                                />
-                                            </TouchableOpacity>
-                                        </View>
-                                    )
-                                })
-                                : <></>
+                                        )
+                                    }) : <></>
                             }
                         </View>
                         <View style={styles.categoryContainer}>
