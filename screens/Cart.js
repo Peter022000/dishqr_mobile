@@ -24,9 +24,13 @@ const Cart = (props) => {
         let a = sendOrder();
     };
 
-    const cart = useSelector((state) => state.cart.cart);
-    const tableNumber = useSelector((state) => state.cart.tableNumber);
-    const cost = (cart.reduce((sum, cost) => {return sum + (cost.price * cost.quantity)}, 0)).toFixed(2);
+    const cart = useSelector((state) => state.cart.dishes);
+    const tableNumber = useSelector((state) => state.cart.tableNoId);
+    const cost = useSelector((state) => state.cart.cost);
+
+    useEffect(() => {
+        // console.log('Dish Name:', cart[0].dish.name);
+        }, [cart]);
 
     const sendOrder = async () => {
         try {
@@ -98,11 +102,13 @@ const Cart = (props) => {
                         <View>
                             {
                                 cart.map((dish, index) => {
+                                    console.log(dish.dish.name)
+
                                     return (
-                                        <View key={index + '_soup'} style={styles.dishContainer}>
+                                        <View key={index} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
-                                                <Text style={styles.dishName}>{dish.name}</Text>
-                                                <Text style={styles.dishPrice}> {dish.price} x{dish.quantity}: {(dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                                <Text style={styles.dishName}>{dish.dish.name}</Text>
+                                                <Text style={styles.dishPrice}> {dish.dish.price} x{dish.dish.quantity}: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
