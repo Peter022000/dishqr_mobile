@@ -1,7 +1,7 @@
 const initialState = {
     dishes: [],
     tableNoId: '',
-    paymentMethod: '',
+    paymentMethod: null,
     cost: '',
 };
 

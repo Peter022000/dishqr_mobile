@@ -5,35 +5,11 @@ export const addToCart = (dishId, fromType) => async (dispatch, getState) => {
     try {
         const state = getState();
 
-        let body = "";
-
-        if(state.cart.dishes !== [] && state.cart.paymentMethod !== "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                order: state.cart.dishes,
-                paymentMethod: state.cart.paymentMethod,
-            });
-        } else if(state.cart.dishes === [] && state.cart.paymentMethod !== "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                paymentMethod: state.cart.paymentMethod,
-            })
-        } else if(state.cart.dishes !== [] && state.cart.paymentMethod === "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                order: state.cart.dishes
-            })
-        } else if(state.cart.dishes === [] && state.cart.paymentMethod === "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-            })
-        }
-
-        // console.log(body);
+        let body = JSON.stringify({
+            tableNo: state.cart.tableNoId,
+            cost: state.cart.cost,
+            order: state.cart.dishes,
+            paymentMethod: state.cart.paymentMethod});
 
         const response = await axios.post('http://192.168.1.2:8080/order/addToOrder?dishId=' + dishId, body, {
             headers: {
@@ -68,33 +44,11 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
     try {
         const state = getState();
 
-        let body = "";
-
-        if(state.cart.dishes !== [] && state.cart.paymentMethod !== "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                order: state.cart.dishes,
-                paymentMethod: state.cart.paymentMethod,
-            });
-        } else if(state.cart.dishes === [] && state.cart.paymentMethod !== "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                paymentMethod: state.cart.paymentMethod,
-            })
-        } else if(state.cart.dishes !== [] && state.cart.paymentMethod === "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-                order: state.cart.dishes
-            })
-        } else if(state.cart.dishes === [] && state.cart.paymentMethod === "") {
-            body = JSON.stringify({
-                tableNo: state.cart.tableNoId,
-                cost: state.cart.cost,
-            })
-        }
+        let body = JSON.stringify({
+            tableNo: state.cart.tableNoId,
+            cost: state.cart.cost,
+            order: state.cart.dishes,
+            paymentMethod: state.cart.paymentMethod});
 
         const response = await axios.post('http://192.168.1.2:8080/order/removeFromOrder?dishId=' + dishId, body, {
             headers: {

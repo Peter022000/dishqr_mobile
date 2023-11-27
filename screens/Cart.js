@@ -114,7 +114,7 @@ const Cart = (props) => {
                                         <View key={index} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
                                                 <Text style={styles.dishName}>{dish.dish.name}</Text>
-                                                <Text style={styles.dishPrice}> {dish.dish.price} x{dish.dish.quantity}: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                                <Text style={styles.dishPrice}> {dish.dish.price} x{dish.quantity}: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
