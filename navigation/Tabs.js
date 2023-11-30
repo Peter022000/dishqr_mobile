@@ -3,8 +3,8 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Menu from '../screens/Menu';
 import Cart from '../screens/Cart';
 import Home from '../screens/Home';
-import AboutUs from '../screens/AbousUs';
 import Scanner from '../screens/Scanner';
+import AccountTabs from './AccountTabs';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +38,7 @@ const Tabs = () =>{
     }
 
     return(
+
         <Tab.Navigator
             screenOptions={{
                 tabBarShowLabel: false,
@@ -118,11 +119,11 @@ const Tabs = () =>{
                         <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>Koszyk</Text>
                     </View>)
             }}/>
-            <Tab.Screen name={"O nas"} component={AboutUs} options={{
+            <Tab.Screen name={"Account"} component={AccountTabs} options={{
                 tabBarIcon: ({focused}) => (
                     <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                         <Image
-                            source={require("../assets/icons/info.png")}
+                            source={require("../assets/icons/user.png")}
                             resizeMode={'contain'}
                             style={{
                                 width: 30,
@@ -130,7 +131,7 @@ const Tabs = () =>{
                                 tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>O nas</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94', fontSize: 14}}>Konto</Text>
                     </View>)
             }}/>
 
