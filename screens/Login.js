@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
+import {useDispatch} from 'react-redux';
+import {login} from '../actions/authAction';
 
 const Login = (props) => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+
+    const handleEmailChange = (newEmail) => {
+        setEmail(newEmail);
+    };
+
+    const handlePasswordChange = (newPassword) => {
+        setPassword(newPassword);
+    };
+
+    const handleLogin = () => {
+        dispatch(login(email, password))
+    }
 
     return (
         <SafeAreaView style={{flex: 1, marginTop: 20}}>
@@ -32,6 +51,7 @@ const Login = (props) => {
                         />
                     }
                     keyboardType="email-address"
+                    onChangeText={handleEmailChange}
                 />
 
                 <InputField
@@ -45,10 +65,10 @@ const Login = (props) => {
                         />
                     }
                     inputType="password"
-                    fieldButtonFunction={() => {}}
+                    onChangeText={handlePasswordChange}
                 />
 
-                <CustomButton label={"Zaloguj"} onPress={() => {}} />
+                <CustomButton label={"Zaloguj"} onPress={() => {handleLogin()}} />
 
                 <View
                     style={{

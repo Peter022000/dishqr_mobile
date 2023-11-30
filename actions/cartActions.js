@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import {ACCEPT_ORDER, ADD_TO_CART, REMOVE_FROM_CART, SAVE_PAYMENT_METHOD} from '../types/cartTypes';
 
 export const acceptOrder = () => async (dispatch, getState) => {
     try {
@@ -19,7 +20,7 @@ export const acceptOrder = () => async (dispatch, getState) => {
         });
 
         dispatch({
-            type: 'ACCEPT_ORDER'
+            type: ACCEPT_ORDER
         });
     } catch (error) {
         Toast.show({
@@ -34,7 +35,7 @@ export const acceptOrder = () => async (dispatch, getState) => {
 export const savePaymentMethod = (paymentMethod) => (dispatch, getState) => {
     try {
         dispatch({
-            type: 'SAVE_PAYMENT_METHOD',
+            type: SAVE_PAYMENT_METHOD,
             payload: {
                 data: paymentMethod
             }
@@ -74,7 +75,7 @@ export const addToCart = (dishId, fromType) => async (dispatch, getState) => {
         }
 
         dispatch({
-            type: 'ADD_TO_CART',
+            type: ADD_TO_CART,
             payload: {
                 data: data
             },
@@ -108,7 +109,7 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
         const data = response.data;
 
         dispatch({
-            type: 'REMOVE_FROM_CART',
+            type: REMOVE_FROM_CART,
             payload: {
                 data: data
             },

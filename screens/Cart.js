@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
-import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/actions';
+import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/cartActions';
 import axios from 'axios';
 
 const Cart = (props) => {

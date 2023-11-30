@@ -10,7 +10,7 @@ import {
     RefreshControl,
 } from 'react-native';
 import { useDispatch } from "react-redux";
-import { addToCart } from '../actions/actions';
+import { addToCart } from '../actions/cartActions';
 
 const Menu = (props) => {
 
