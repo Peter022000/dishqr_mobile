@@ -3,12 +3,14 @@ import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} 
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
-import {addToCart, removeFromCart} from '../actions/actions';
+import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/actions';
+import axios from 'axios';
 
 const Cart = (props) => {
 
     const [paymentMethod, setPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
+    const [tableNumber, setTableNumber] = useState('');
 
     const dispatch = useDispatch();
 
@@ -25,45 +27,48 @@ const Cart = (props) => {
     };
 
     const cart = useSelector((state) => state.cart.dishes);
-    const tableNumber = useSelector((state) => state.cart.tableNoId);
+    const tableNumberId = useSelector((state) => state.cart.tableNoId);
     const cost = useSelector((state) => state.cart.cost);
 
-    useEffect(() => {
-        // console.log('Dish Name:', cart[0].dish.name);
-        }, [cart]);
-
     const sendOrder = async () => {
-        try {
-            const response = await fetch('http://192.168.1.2:8080/order/sendOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    tableNo: Number(tableNumber),
-                    cost: Number(cost),
-                    order: cart.map(({id, name, price, quantity}) => ({id, name, price, quantity})),
-                    paymentMethod: paymentMethod
-                })
-            });
-
-            setVisible(false);
-            Toast.show({
-                type: 'success',
-                text1: 'Złożono zamówienie',
-            });
-            dispatch(clearCart());
-            setTableNumber('');
-            setPaymentMethod('');
-        } catch (error) {
-            console.error(error);
-            Toast.show({
-                type: 'error',
-                text1: 'Nie udało się złożyć zamówienia',
-                text2: error
-            });
-        }
+        dispatch(acceptOrder());
+        setVisible(false);
+        Toast.show({
+            type: 'success',
+            text1: 'Złożono zamówienie',
+        })
+        setPaymentMethod('');
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (tableNumberId !== '' && tableNumberId !== null) {
+                try {
+                    const response = await axios.get('http://192.168.1.2:8080/qrCode/getValue/' + tableNumberId, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    setTableNumber(response.data.qrCode);
+                } catch (error) {
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Nie udało się pobrać numeru stolika',
+                    });
+                }
+            }
+        };
+
+        let a = fetchData();
+
+        // The cleanup function
+        return () => {};
+    }, [tableNumberId]);
+
+    useEffect(() => {
+        dispatch(savePaymentMethod(paymentMethod));
+    }, [paymentMethod]);
+
 
     const addItemToCart = (item) => {
         dispatch(addToCart(item.id, "fromCart"));
