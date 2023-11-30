@@ -1,5 +1,3 @@
-import {stat} from '@babel/core/lib/gensync-utils/fs';
-
 const initialState = {
     dishes: [],
     tableNoId: '',
@@ -22,7 +20,6 @@ const CartReducer = (state = initialState, action) => {
                 ...initialState
             };
         case "SAVE_PAYMENT_METHOD":
-            console.log(action.payload.data)
             return {
                 ...state,
                 paymentMethod: action.payload.data,
