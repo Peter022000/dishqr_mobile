@@ -5,10 +5,11 @@ import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
 import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/cartActions';
 import axios from 'axios';
+import CustomButton from '../components/CustomButton';
 
 const Cart = (props) => {
 
-    const [paymentMethod, setPaymentMethod] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState(null);
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
 
@@ -66,7 +67,9 @@ const Cart = (props) => {
     }, [tableNumberId]);
 
     useEffect(() => {
-        dispatch(savePaymentMethod(paymentMethod));
+        if(paymentMethod !== '' && paymentMethod !== null){
+            dispatch(savePaymentMethod(paymentMethod));
+        }
     }, [paymentMethod]);
 
 
@@ -159,9 +162,7 @@ const Cart = (props) => {
                 <View style={styles.table}>
                     <Text style={styles.tableTitle}>Numer stolika: {tableNumber}</Text>
                 </View>
-                <TouchableOpacity onPress={() => validate()} style={styles.checkoutButton}>
-                    <Text style={styles.checkoutButtonText}>Zamów</Text>
-                </TouchableOpacity>
+                <CustomButton label={"Zamów"} onPress={() => validate()} />
             </View>
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Zamówienie</Dialog.Title>

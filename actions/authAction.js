@@ -42,10 +42,8 @@ export const login = (email, password) => async (dispatch, getState) => {
     } catch (error) {
         Toast.show({
             type: 'error',
-            text1: 'Login failed',
-            text2: error.message,
+            text1: 'Błędny email lub hasło'
         });
-        console.error('Error during login:', error);
     }
 };
 
@@ -75,7 +73,7 @@ export const isExpired = () => async (dispatch, getState) => {
 };
 
 
-export const logout = () => (dispatch) => {
+export const logOut = () => (dispatch) => {
     // You might want to add a logout API call here if needed
 
     dispatch({
@@ -84,6 +82,6 @@ export const logout = () => (dispatch) => {
 
     Toast.show({
         type: 'info',
-        text1: 'Logged out successfully',
+        text1: 'Wylogowano',
     });
 };
