@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const Cart = (props) => {
 
-    const [paymentMethod, setPaymentMethod] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
 
@@ -66,9 +66,7 @@ const Cart = (props) => {
     }, [tableNumberId]);
 
     useEffect(() => {
-        if(paymentMethod !== '' && paymentMethod !== null) {
-            dispatch(savePaymentMethod(paymentMethod));
-        }
+        dispatch(savePaymentMethod(paymentMethod));
     }, [paymentMethod]);
 
 

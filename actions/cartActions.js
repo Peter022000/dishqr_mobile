@@ -12,6 +12,7 @@ export const acceptOrder = () => async (dispatch, getState) => {
             order: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
 
+        console.log(body)
         const response = await axios.post('http://192.168.1.2:8080/order/acceptOrder', body, {
             headers: {
                 'Content-Type': 'application/json',

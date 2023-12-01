@@ -2,14 +2,19 @@ import cartReducer from "../reducer/cartReducer";
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import authReducer from '../reducer/authReducer';
+import { persistStore } from 'redux-persist';
+import storage from '@react-native-async-storage/async-storage';
+import authReducerPersisted from '../reducer/authReducerPersisted';
 
 
 const store = configureStore({
     reducer: {
         cart: cartReducer,
-        auth: authReducer
+        auth: authReducerPersisted
     },
     middleware: [thunk],
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };
