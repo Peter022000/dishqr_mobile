@@ -22,16 +22,12 @@ const AccountTabs = (props) => {
             dispatch(isExpired());
             if (isLogged) {
                 props.navigation.navigate('AccountHome');
+            } else {
+                props.navigation.navigate('Login');
             }
         });
     }, [props.navigation, dispatch, isLogged]);
 
-    // useEffect(() => {
-    //     dispatch(isExpired());
-    //     if (isLogged) {
-    //         props.navigation.navigate('Home');
-    //     }
-    // }, [dispatch, isLogged]);
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>

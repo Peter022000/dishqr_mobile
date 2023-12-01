@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,14 +13,6 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
-
-    const handleEmailChange = (newEmail) => {
-        setEmail(newEmail);
-    };
-
-    const handlePasswordChange = (newPassword) => {
-        setPassword(newPassword);
-    };
 
     const handleLogin = () => {
         dispatch(login(email, password))
@@ -51,7 +43,7 @@ const Login = (props) => {
                         />
                     }
                     keyboardType="email-address"
-                    onChangeText={handleEmailChange}
+                    onChangeText={setEmail}
                 />
 
                 <InputField
@@ -65,7 +57,7 @@ const Login = (props) => {
                         />
                     }
                     inputType="password"
-                    onChangeText={handlePasswordChange}
+                    onChangeText={setPassword}
                 />
 
                 <CustomButton label={"Zaloguj"} onPress={() => {handleLogin()}} />

@@ -77,7 +77,8 @@ const Register = (props) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-        </SafeAreaView>    );
+        </SafeAreaView>
+    );
 };
 
 export default Register;

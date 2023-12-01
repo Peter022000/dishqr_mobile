@@ -1,4 +1,4 @@
-import {EXPIRED, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types/authTypes';
+import {CHANGE_PASSWORD_SUCCESS, EXPIRED, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types/authTypes';
 
 const initialState = {
     token: '',
@@ -22,6 +22,7 @@ const authReducer = (state = initialState, action) => {
             };
         case LOGOUT_SUCCESS:
         case EXPIRED:
+        case CHANGE_PASSWORD_SUCCESS:
             return initialState;
         default:
             return state;

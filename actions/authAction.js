@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
-import {EXPIRED, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types/authTypes';
+import {CHANGE_PASSWORD_SUCCESS, EXPIRED, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types/authTypes';
 import { decode } from "base-64";
 import { jwtDecode } from "jwt-decode";
 
@@ -46,6 +46,42 @@ export const login = (email, password) => async (dispatch, getState) => {
         });
     }
 };
+
+export const changePassword = (oldPassword, newPassword, repeatNewPassword) => async (dispatch, getState) => {
+    try {
+
+        const body = JSON.stringify({
+            oldPassword: oldPassword,
+            newPassword: repeatNewPassword,
+            repeatNewPassword: repeatNewPassword
+        })
+
+        const state = getState();
+        const token = state.auth.token;
+
+        const response = await axios.put('http://192.168.1.2:8080/users/changePassword', body, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        dispatch({
+            type: CHANGE_PASSWORD_SUCCESS
+        });
+
+        Toast.show({
+            type: 'success',
+            text1: 'Zmieniono hasło',
+        });
+    } catch (error) {
+        Toast.show({
+            type: 'error',
+            text1: 'Jedno z haseł nie pasuje'
+        });
+    }
+};
+
 
 export const isExpired = () => async (dispatch, getState) => {
     try {
