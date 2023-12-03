@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#e32f45',
         borderRadius: 4,
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     controlButtonText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#e32f45',
     },
     dishContainer: {
         flexDirection: 'row',

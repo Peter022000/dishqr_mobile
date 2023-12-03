@@ -80,6 +80,7 @@ const Menu = (props) => {
                                 style={{
                                     width: 30,
                                     height: 30,
+                                    tintColor: "#FFFFFF"
                                 }}
                             />
                         </TouchableOpacity>
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     dishAction: {
-        backgroundColor: '#FFD600',
+        backgroundColor: '#e32f45',
         borderRadius: 15,
         width: 45,
         height: 45,

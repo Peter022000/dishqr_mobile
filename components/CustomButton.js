@@ -6,7 +6,7 @@ export default function CustomButton({label, onPress}) {
         <TouchableOpacity
             onPress={onPress}
             style={{
-                backgroundColor: '#AD40AF',
+                backgroundColor: '#e32f45',
                 padding: 20,
                 margin: 10,
                 borderRadius: 10,
