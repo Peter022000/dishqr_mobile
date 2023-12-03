@@ -105,9 +105,7 @@ const Cart = (props) => {
     }
 
     const handlePaymentMethod = (paymentMethod) => {
-        if(paymentMethod !== '' && paymentMethod !== null){
-            dispatch(savePaymentMethod(paymentMethod));
-        }
+        dispatch(savePaymentMethod(paymentMethod));
     };
 
     return (
