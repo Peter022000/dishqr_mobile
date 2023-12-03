@@ -100,9 +100,7 @@ const Cart = (props) => {
                 text2: 'Brak numeru stolika',
             });
         }else{
-            if(paymentMethod !== '' && paymentMethod !== null){
-                dispatch(savePaymentMethod(paymentMethod));
-            }
+            showDialog();
         }
     }
 
