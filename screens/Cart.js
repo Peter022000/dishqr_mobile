@@ -88,7 +88,7 @@ const Cart = (props) => {
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Koszyk jest pusty',
             });
-        }else if(paymentMethod === '') {
+        }else if(paymentMethod === '' || paymentMethod === null) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
@@ -115,7 +115,7 @@ const Cart = (props) => {
                 {cart.length !== 0 ?
                     <>
                         <Text style={styles.title}>Twój koszyk:</Text>
-                        <View>
+                        <View style={{backgroundColor: '#ffffff', borderRadius: 20}}>
                             {
                                 cart.map((dish, index) => {
                                     return (
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         padding: 16,
-        backgroundColor: '#fff',
         paddingBottom: 140
     },
     title: {

@@ -8,6 +8,7 @@ export default function CustomButton({label, onPress}) {
             style={{
                 backgroundColor: '#AD40AF',
                 padding: 20,
+                margin: 10,
                 borderRadius: 10,
                 marginBottom: 30,
             }}>

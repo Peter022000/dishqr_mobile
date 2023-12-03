@@ -85,17 +85,18 @@ export const changePassword = (oldPassword, newPassword, repeatNewPassword) => a
 
 export const isExpired = () => async (dispatch, getState) => {
     try {
-
         const state = getState();
 
         const dateNow = new Date();
-        if(state.auth.exp < dateNow.getTime()) {
+        const expirationTimeInMilliseconds = state.auth.expirationTime * 1000;
+        if(expirationTimeInMilliseconds < dateNow.getTime()) {
+            console.log("token")
             dispatch({
                 type: EXPIRED,
             });
             Toast.show({
                 type: 'error',
-                text1: 'Token wygasł',
+                text1: 'Token wygasł, wylogowano',
             });
         }
     } catch (error) {

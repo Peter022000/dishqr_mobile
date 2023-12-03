@@ -8,6 +8,7 @@ import ChangePassword from '../screens/ChangePassword';
 import OrderHistory from '../screens/OrderHistory';
 import LogOut from '../screens/LogOut';
 import {isExpired} from '../actions/authAction';
+import OrderDetails from '../screens/OrderDetails';
 
 const AccountTabs = (props) => {
 
@@ -41,6 +42,7 @@ const AccountTabs = (props) => {
                         <Stack.Screen name="AccountHome" component={AccountHome} />
                         <Stack.Screen name="ChangePassword" component={ChangePassword} />
                         <Stack.Screen name="OrderHistory" component={OrderHistory} />
+                        <Stack.Screen name="OrderDetails" component={OrderDetails} />
                         <Stack.Screen name="LogOut" component={LogOut} />
                     </>
             }

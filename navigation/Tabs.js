@@ -104,7 +104,7 @@ const Tabs = () =>{
                 )
             }}/>
 
-            <Tab.Screen name={"Koszyk"} component={Cart} options={{
+            <Tab.Screen name={"Cart"} component={Cart} options={{
                 tabBarIcon: ({focused}) => (
                     <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                         <Image

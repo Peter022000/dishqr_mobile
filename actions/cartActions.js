@@ -12,12 +12,24 @@ export const acceptOrder = () => async (dispatch, getState) => {
             order: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
 
-        console.log(body)
-        const response = await axios.post('http://192.168.1.2:8080/order/acceptOrder', body, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+
+        const isLogged = state.auth.isLogged;
+
+        if(isLogged) {
+            const token = state.auth.token;
+            const response = await axios.post('http://192.168.1.2:8080/order/acceptOrder', body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+            });
+        } else {
+            const response = await axios.post('http://192.168.1.2:8080/order/acceptOrder', body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
 
         dispatch({
             type: ACCEPT_ORDER
@@ -123,3 +135,4 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
         console.error('Error while removing from cart:', error);
     }
 };
+

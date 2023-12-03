@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useDispatch } from "react-redux";
 import { addToCart } from '../actions/cartActions';
+import axios from 'axios';
 
 const Menu = (props) => {
 
@@ -28,12 +29,16 @@ const Menu = (props) => {
 
     const getDishes = async () => {
         try {
-            let string = 'http://192.168.1.2:8080/dishes/getAllDishes';
-            const response = await fetch(string);
-            const json = await response.json();
+            const response = await axios.get('http://192.168.1.2:8080/dishes/getAllDishes', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-            setSoups(json.filter(t => t.dishType === "soup"));
-            setMainCourse(json.filter(t => t.dishType === "mainCourse"));
+            const data = response.data;
+
+            setSoups(data.filter(t => t.dishType === "soup"));
+            setMainCourse(data.filter(t => t.dishType === "mainCourse"));
         } catch (error) {
             console.error(error);
         } finally {
