@@ -3,7 +3,7 @@ import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'reac
 import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
 import {useDispatch} from 'react-redux';
-import {ACCEPT_ORDER, CLEAR} from '../types/cartTypes';
+import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
 import {addToCart} from '../actions/cartActions';
 
 const OrderDetails = (props) => {
@@ -40,6 +40,10 @@ const OrderDetails = (props) => {
 
 
     const redoOrder = async () => {
+        dispatch({
+            type: CLEAR
+        });
+
         for (const dish of order.order) {
             await dispatch(addToCart(dish.dish.id, "cart"));
         }
