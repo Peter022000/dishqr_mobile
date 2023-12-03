@@ -65,13 +65,6 @@ const Cart = (props) => {
         return () => {};
     }, [tableNumberId]);
 
-    const setPaymentMethod = (paymentMethod) => {
-        if(paymentMethod !== '' && paymentMethod !== null){
-            dispatch(savePaymentMethod(paymentMethod));
-        }
-    };
-
-
     const addItemToCart = (item) => {
         dispatch(addToCart(item.id, "fromCart"));
     };
