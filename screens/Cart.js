@@ -9,7 +9,6 @@ import CustomButton from '../components/CustomButton';
 
 const Cart = (props) => {
 
-    const [paymentMethod, setPaymentMethod] = useState(null);
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
 
@@ -30,6 +29,7 @@ const Cart = (props) => {
     const cart = useSelector((state) => state.cart.dishes);
     const tableNumberId = useSelector((state) => state.cart.tableNoId);
     const cost = useSelector((state) => state.cart.cost);
+    const paymentMethod = useSelector((state) => state.cart.paymentMethod);
 
     const sendOrder = async () => {
         dispatch(acceptOrder());
@@ -38,7 +38,6 @@ const Cart = (props) => {
             type: 'success',
             text1: 'Złożono zamówienie',
         })
-        setPaymentMethod('');
     };
 
     useEffect(() => {
@@ -66,11 +65,11 @@ const Cart = (props) => {
         return () => {};
     }, [tableNumberId]);
 
-    useEffect(() => {
+    const setPaymentMethod = (paymentMethod) => {
         if(paymentMethod !== '' && paymentMethod !== null){
             dispatch(savePaymentMethod(paymentMethod));
         }
-    }, [paymentMethod]);
+    };
 
 
     const addItemToCart = (item) => {
@@ -101,12 +100,16 @@ const Cart = (props) => {
                 text2: 'Brak numeru stolika',
             });
         }else{
-            showDialog();
+            if(paymentMethod !== '' && paymentMethod !== null){
+                dispatch(savePaymentMethod(paymentMethod));
+            }
         }
     }
 
-    const handlePaymentMethod = (method) => {
-        setPaymentMethod(method);
+    const handlePaymentMethod = (paymentMethod) => {
+        if(paymentMethod !== '' && paymentMethod !== null){
+            dispatch(savePaymentMethod(paymentMethod));
+        }
     };
 
     return (

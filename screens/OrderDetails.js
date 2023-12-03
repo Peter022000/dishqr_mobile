@@ -4,7 +4,7 @@ import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
 import {useDispatch} from 'react-redux';
 import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
-import {addToCart} from '../actions/cartActions';
+import {addToCart, savePaymentMethod} from '../actions/cartActions';
 
 const OrderDetails = (props) => {
     const [order, setOrder] = useState([]);
