@@ -47,6 +47,33 @@ export const login = (email, password) => async (dispatch, getState) => {
     }
 };
 
+export const register = (email, password) => async (dispatch, getState) => {
+    try {
+
+        const body = JSON.stringify({
+            email: email,
+            password: password
+        })
+
+        const response = await axios.post('http://192.168.1.2:8080/users/signup', body, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        Toast.show({
+            type: 'success',
+            text1: 'Zarejestrowano',
+        });
+    } catch (error) {
+        Toast.show({
+            type: 'error',
+            text1: 'Błędny email lub hasło'
+        });
+    }
+};
+
+
 export const changePassword = (oldPassword, newPassword, repeatNewPassword) => async (dispatch, getState) => {
     try {
 

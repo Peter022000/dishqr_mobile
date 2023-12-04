@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import InputField from '../components/InputField';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomButton from '../components/CustomButton';
+import {useDispatch} from 'react-redux';
+import {register} from '../actions/authAction';
 
 const Register = (props) => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+
+    const dispatch = useDispatch();
+
+    const handleRegister = () => {
+        dispatch(register(email, password))
+        props.navigation.navigate("Login");
+    }
 
     return (
         <SafeAreaView style={{flex: 1, justifyContent: 'center', marginTop: 10}}>
@@ -35,6 +48,7 @@ const Register = (props) => {
                         />
                     }
                     keyboardType="email-address"
+                    onChangeText={setEmail}
                 />
 
                 <InputField
@@ -48,6 +62,7 @@ const Register = (props) => {
                         />
                     }
                     inputType="password"
+                    onChangeText={setPassword}
                 />
 
                 <InputField
@@ -61,9 +76,10 @@ const Register = (props) => {
                         />
                     }
                     inputType="password"
+                    onChangeText={setRepeatPassword}
                 />
 
-                <CustomButton label={'Zarejestruj'} onPress={() => {}} />
+                <CustomButton label={'Zarejestruj'} onPress={() => {handleRegister()}} />
 
                 <View
                     style={{
