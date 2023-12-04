@@ -45,7 +45,9 @@ const OrderDetails = (props) => {
         });
 
         for (const dish of order.order) {
-            await dispatch(addToCart(dish.dish.id, "cart"));
+            for (let i = 0; i < dish.quantity; i++) {
+                await dispatch(addToCart(dish.dish.id, "cart"));
+            }
         }
         props.navigation.navigate("Cart");
     }
