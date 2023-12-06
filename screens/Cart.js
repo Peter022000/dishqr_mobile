@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
-import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/actions';
+import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/cartActions';
 import axios from 'axios';
+import CustomButton from '../components/CustomButton';
 
 const Cart = (props) => {
 
-    const [paymentMethod, setPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
 
@@ -29,6 +29,7 @@ const Cart = (props) => {
     const cart = useSelector((state) => state.cart.dishes);
     const tableNumberId = useSelector((state) => state.cart.tableNoId);
     const cost = useSelector((state) => state.cart.cost);
+    const paymentMethod = useSelector((state) => state.cart.paymentMethod);
 
     const sendOrder = async () => {
         dispatch(acceptOrder());
@@ -37,7 +38,6 @@ const Cart = (props) => {
             type: 'success',
             text1: 'Złożono zamówienie',
         })
-        setPaymentMethod('');
     };
 
     useEffect(() => {
@@ -65,11 +65,6 @@ const Cart = (props) => {
         return () => {};
     }, [tableNumberId]);
 
-    useEffect(() => {
-        dispatch(savePaymentMethod(paymentMethod));
-    }, [paymentMethod]);
-
-
     const addItemToCart = (item) => {
         dispatch(addToCart(item.id, "fromCart"));
     };
@@ -85,7 +80,7 @@ const Cart = (props) => {
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Koszyk jest pusty',
             });
-        }else if(paymentMethod === '') {
+        }else if(paymentMethod === '' || paymentMethod === null) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
@@ -102,8 +97,8 @@ const Cart = (props) => {
         }
     }
 
-    const handlePaymentMethod = (method) => {
-        setPaymentMethod(method);
+    const handlePaymentMethod = (paymentMethod) => {
+        dispatch(savePaymentMethod(paymentMethod));
     };
 
     return (
@@ -112,7 +107,7 @@ const Cart = (props) => {
                 {cart.length !== 0 ?
                     <>
                         <Text style={styles.title}>Twój koszyk:</Text>
-                        <View>
+                        <View style={{backgroundColor: '#ffffff', borderRadius: 20}}>
                             {
                                 cart.map((dish, index) => {
                                     return (
@@ -159,9 +154,7 @@ const Cart = (props) => {
                 <View style={styles.table}>
                     <Text style={styles.tableTitle}>Numer stolika: {tableNumber}</Text>
                 </View>
-                <TouchableOpacity onPress={() => validate()} style={styles.checkoutButton}>
-                    <Text style={styles.checkoutButtonText}>Zamów</Text>
-                </TouchableOpacity>
+                <CustomButton label={"Zamów"} onPress={() => validate()} />
             </View>
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Zamówienie</Dialog.Title>
@@ -179,7 +172,6 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         padding: 16,
-        backgroundColor: '#fff',
         paddingBottom: 140
     },
     title: {
@@ -249,7 +241,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#e32f45',
         borderRadius: 4,
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -258,7 +250,7 @@ const styles = StyleSheet.create({
     controlButtonText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#e32f45',
     },
     dishContainer: {
         flexDirection: 'row',

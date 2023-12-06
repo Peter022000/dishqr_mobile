@@ -3,8 +3,9 @@ import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
 import {Provider} from 'react-redux';
-import store from './store/store';
-import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+import {persistor, store} from './store/store';
+import Toast, {BaseToast, ErrorToast, InfoToast} from 'react-native-toast-message';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const toastConfig = {
     success: (props) => (
@@ -36,7 +37,19 @@ const toastConfig = {
                 fontWeight: '300'
             }}
         />
-    )
+    ),
+    info: (props) => (
+        <InfoToast
+            {...props}
+            text1Style={{
+                fontSize: 20,
+                fontWeight: '400'
+            }}
+            text2Style={{
+                fontSize: 15,
+                fontWeight: '300'
+            }}
+        />)
 };
 
 const App = () => {
@@ -44,9 +57,11 @@ const App = () => {
     return (
         <>
             <Provider store={store}>
-                <NavigationContainer>
-                    <Tabs/>
-                </NavigationContainer>
+                <PersistGate loading={null} persistor={persistor}>
+                    <NavigationContainer>
+                        <Tabs/>
+                    </NavigationContainer>
+                </PersistGate>
             </Provider>
             <Toast visibilityTime={2000} config={toastConfig}/>
         </>
