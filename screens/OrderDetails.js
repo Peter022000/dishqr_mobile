@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
 import {addToCart, savePaymentMethod} from '../actions/cartActions';
 
@@ -15,10 +15,15 @@ const OrderDetails = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(props.route.params.order.orderDiscount.isUsed)
         return props.navigation.addListener("focus", () => {
             setOrder(props.route.params.order);
         });
     }, [props.navigation]);
+
+    useEffect(() => {
+        console.log(order?.orderDiscount?.isUsed)
+    }, [order]);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
@@ -61,6 +66,16 @@ const OrderDetails = (props) => {
             <View style={styles.dishContainer}>
                 <Text style={styles.dishInformation}>Razem: {order.cost} zł</Text>
                 <Text style={styles.dishInformation}>Data: {formatDate(order.date)}</Text>
+                {
+                    order?.orderDiscount?.isUsed ?
+                        <>
+                            <Text style={styles.dishInformation}>Wykorzystano obniżkę: {order?.orderDiscount?.discountPercentage * 100}%</Text>
+                            <Text style={styles.dishInformation}>Poprzednia cena: {order?.orderDiscount?.oldCost} zł</Text>
+                            <Text style={styles.dishInformation}>Zaoszczędzono: {(order?.orderDiscount?.oldCost - order?.cost).toFixed(2)} zł</Text>
+                        </> :
+                        <>
+                        </>
+                }
             </View>
 
             <View style={styles.buttonsContainer}>

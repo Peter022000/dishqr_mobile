@@ -125,7 +125,6 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
         });
 
         const data = response.data;
-        console.log(response.data);
 
         dispatch({
             type: REMOVE_FROM_CART,

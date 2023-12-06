@@ -3,6 +3,7 @@ import Toast from 'react-native-toast-message';
 import {CHANGE_PASSWORD_SUCCESS, EXPIRED, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types/authTypes';
 import { decode } from "base-64";
 import { jwtDecode } from "jwt-decode";
+import {CLEAR} from '../types/cartTypes';
 
 global.atob = decode;
 
@@ -33,6 +34,10 @@ export const login = (email, password) => async (dispatch, getState) => {
                 creationTime: decoded.iat,
                 role: decoded.role[0],
             },
+        });
+
+        dispatch({
+            type: CLEAR
         });
 
         Toast.show({
@@ -140,10 +145,12 @@ export const isExpired = () => async (dispatch, getState) => {
 
 
 export const logOut = () => (dispatch) => {
-    // You might want to add a logout API call here if needed
-
     dispatch({
         type: LOGOUT_SUCCESS,
+    });
+
+    dispatch({
+        type: CLEAR
     });
 
     Toast.show({
