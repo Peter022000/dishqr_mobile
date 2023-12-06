@@ -113,18 +113,18 @@ const Cart = (props) => {
                                     return (
                                         <View key={index} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
-                                                <Text style={styles.dishName}>{dish.dish.name}</Text>
-                                                <Text style={styles.dishPrice}> {dish.dish.price} x{dish.quantity}: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                                <Text style={styles.dishName}>{dish.dishDto.name}</Text>
+                                                <Text style={styles.dishPrice}> {dish.dishDto.price} x{dish.quantity}: {(dish.dishDto.price * dish.quantity).toFixed(2)} zł</Text>
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
-                                                    removeItemFromCart(dish.dish)
+                                                    removeItemFromCart(dish.dishDto)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>-</Text>
                                                 </TouchableOpacity>
                                                 <Text style={styles.quantity}>{dish.quantity}</Text>
                                                 <TouchableOpacity onPress={() => {
-                                                    addItemToCart(dish.dish)
+                                                    addItemToCart(dish.dishDto)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>+</Text>
                                                 </TouchableOpacity>

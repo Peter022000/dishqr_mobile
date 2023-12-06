@@ -12,7 +12,7 @@ const cartReducer = (state = initialState, action) => {
         case REMOVE_FROM_CART:
         case ADD_TO_CART:
             return {
-                dishes: action.payload.data.order,
+                dishes: action.payload.data.orderDishesDto,
                 tableNoId: action.payload.data.tableNoId,
                 paymentMethod: action.payload.data.paymentMethod,
                 cost: action.payload.data.cost
