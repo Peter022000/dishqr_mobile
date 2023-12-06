@@ -47,12 +47,13 @@ export const login = (email, password) => async (dispatch, getState) => {
     }
 };
 
-export const register = (email, password) => async (dispatch, getState) => {
+export const register = (email, password, repeatPassword) => async (dispatch, getState) => {
     try {
 
         const body = JSON.stringify({
             email: email,
-            password: password
+            password: password,
+            repeatPassword: repeatPassword
         })
 
         const response = await axios.post('http://192.168.1.2:8080/users/signup', body, {

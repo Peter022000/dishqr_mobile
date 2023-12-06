@@ -16,7 +16,7 @@ const Register = (props) => {
     const dispatch = useDispatch();
 
     const handleRegister = () => {
-        dispatch(register(email, password))
+        dispatch(register(email, password, repeatPassword))
         props.navigation.navigate("Login");
     }
 
