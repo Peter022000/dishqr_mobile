@@ -168,7 +168,14 @@ const Cart = (props) => {
 
                                         </> :
                                         <>
-                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało {ordersRequired-(ordersCount%ordersRequired)}</Text>
+                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało
+                                            {
+                                                ordersRequired-(ordersCount%ordersRequired) === 1 ?
+                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienie</Text>
+                                                    :
+                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienia</Text>
+                                            }
+                                            </Text>
                                         </>:
                                     <>
                                         <Text style={styles.tableTitle}>Zaloguj się by korzystać ze zniżek</Text>
