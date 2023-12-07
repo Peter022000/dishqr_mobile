@@ -19,6 +19,7 @@ const OrderHistory = (props) => {
 
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
+            setLoading(true);
             let a = getOrderHistory();
         });
     }, [props.navigation]);

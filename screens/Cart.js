@@ -94,26 +94,25 @@ const Cart = (props) => {
             dispatch({
                 type: CLEAR
             });
-        }
-        else if(cart.length === 0) {
+        } else if(cart.length === 0) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Koszyk jest pusty',
             });
-        }else if(paymentMethod === '' || paymentMethod === null) {
+        } else if(paymentMethod === '' || paymentMethod === null) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Brak metody płatności',
             });
-        }else if(tableNumber === ''){
+        } else if(tableNumber === ''){
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Brak numeru stolika',
             });
-        }else{
+        } else {
             showDialog();
         }
     }

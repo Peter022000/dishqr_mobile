@@ -21,7 +21,6 @@ import {isExpired} from '../actions/authAction';
 const Recommendation = (props) => {
     const [dishes, setDishes] = useState([]);
     const [expandedDishIndex, setExpandedDishIndex] = useState(null);
-    const [visible, setVisible] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -51,8 +50,8 @@ const Recommendation = (props) => {
 
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
+            setLoading(true);
             let a = getRecommendation();
-            dispatch(isExpired())
         });
     }, [props.navigation]);
 
@@ -61,17 +60,6 @@ const Recommendation = (props) => {
         let a = getRecommendation();
         setRefreshing(false);
     }, []);
-
-    // useEffect(() => {
-    //     console.log(props.route.params.order.orderDiscount.isUsed)
-    //     return props.navigation.addListener("focus", () => {
-    //         setOrder(props.route.params.order);
-    //     });
-    // }, [props.navigation]);
-    //
-    // useEffect(() => {
-    //     console.log(order?.orderDiscount?.isUsed)
-    // }, [order]);
 
     const toggleDishExpansion = (index) => {
         setExpandedDishIndex(expandedDishIndex === index ? null : index);

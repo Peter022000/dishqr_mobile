@@ -15,15 +15,10 @@ const OrderDetails = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(props.route.params.order.orderDiscount.isUsed)
         return props.navigation.addListener("focus", () => {
             setOrder(props.route.params.order);
         });
     }, [props.navigation]);
-
-    useEffect(() => {
-        console.log(order?.orderDiscount?.isUsed)
-    }, [order]);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
