@@ -8,6 +8,7 @@ import axios from 'axios';
 import CustomButton from '../components/CustomButton';
 import {isExpired} from '../actions/authAction';
 import AccountTabs from '../navigation/AccountTabs';
+import {ACCEPT_ORDER, CLEAR} from '../types/cartTypes';
 
 const Cart = (props) => {
 
@@ -89,7 +90,12 @@ const Cart = (props) => {
 
     const validate = () => {
         dispatch(isExpired());
-        if(cart.length === 0) {
+        if(!isLogged){
+            dispatch({
+                type: CLEAR
+            });
+        }
+        else if(cart.length === 0) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
