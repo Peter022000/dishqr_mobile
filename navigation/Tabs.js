@@ -5,11 +5,14 @@ import Cart from '../screens/Cart';
 import Home from '../screens/Home';
 import Scanner from '../screens/Scanner';
 import AccountTabs from './AccountTabs';
+import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {isExpired} from '../actions/authAction';
 
 const Tab = createBottomTabNavigator();
 
 
-const Tabs = () =>{
+const Tabs = (props) =>{
 
     const CustomTabBarButton = ({children, onPress}) => (
         <TouchableOpacity
@@ -32,10 +35,6 @@ const Tabs = () =>{
         </TouchableOpacity>
     );
 
-
-    const test = () =>{
-        console.log("QR")
-    }
 
     return(
 

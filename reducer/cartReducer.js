@@ -5,6 +5,7 @@ const initialState = {
     tableNoId: '6474c9699998a17581e0ec47',
     paymentMethod: null,
     cost: '',
+    discount: []
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -12,10 +13,11 @@ const cartReducer = (state = initialState, action) => {
         case REMOVE_FROM_CART:
         case ADD_TO_CART:
             return {
-                dishes: action.payload.data.order,
+                dishes: action.payload.data.orderDishesDto,
                 tableNoId: action.payload.data.tableNoId,
                 paymentMethod: action.payload.data.paymentMethod,
-                cost: action.payload.data.cost
+                cost: action.payload.data.cost,
+                discount: action.payload.data.orderDiscountDto,
             };
         case ACCEPT_ORDER:
         case CLEAR:

@@ -6,13 +6,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../actions/cartActions';
 import axios from 'axios';
 import CustomButton from '../components/CustomButton';
+import {isExpired} from '../actions/authAction';
+import AccountTabs from '../navigation/AccountTabs';
 
 const Cart = (props) => {
+
+
 
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
 
     const dispatch = useDispatch();
+
+    const isLogged = useSelector((state) => state.auth.isLogged);
 
     const showDialog = () => {
         setVisible(true);
@@ -30,6 +36,14 @@ const Cart = (props) => {
     const tableNumberId = useSelector((state) => state.cart.tableNoId);
     const cost = useSelector((state) => state.cart.cost);
     const paymentMethod = useSelector((state) => state.cart.paymentMethod);
+    const discount = useSelector((state) => state.cart.discount);
+
+    const discountIsActive = discount.isUsed;
+    const discountIsEnabled = discount.isEnabled;
+    const discountPercentage = discount.discountPercentage;
+    const oldCost = discount.oldCost;
+    const ordersRequired = discount.ordersRequired;
+    const ordersCount = discount.ordersCount;
 
     const sendOrder = async () => {
         dispatch(acceptOrder());
@@ -74,6 +88,7 @@ const Cart = (props) => {
     };
 
     const validate = () => {
+        dispatch(isExpired());
         if(cart.length === 0) {
             Toast.show({
                 type: 'error',
@@ -113,18 +128,18 @@ const Cart = (props) => {
                                     return (
                                         <View key={index} style={styles.dishContainer}>
                                             <View style={styles.dishDescription}>
-                                                <Text style={styles.dishName}>{dish.dish.name}</Text>
-                                                <Text style={styles.dishPrice}> {dish.dish.price} x{dish.quantity}: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                                <Text style={styles.dishName}>{dish.dishDto.name}</Text>
+                                                <Text style={styles.dishPrice}> {dish.dishDto.price} x{dish.quantity}: {(dish.dishDto.price * dish.quantity).toFixed(2)} zł</Text>
                                             </View>
                                             <View style={styles.dishAction}>
                                                 <TouchableOpacity onPress={() => {
-                                                    removeItemFromCart(dish.dish)
+                                                    removeItemFromCart(dish.dishDto)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>-</Text>
                                                 </TouchableOpacity>
                                                 <Text style={styles.quantity}>{dish.quantity}</Text>
                                                 <TouchableOpacity onPress={() => {
-                                                    addItemToCart(dish.dish)
+                                                    addItemToCart(dish.dishDto)
                                                 }} style={styles.controlButton}>
                                                     <Text style={styles.controlButtonText}>+</Text>
                                                 </TouchableOpacity>
@@ -135,7 +150,25 @@ const Cart = (props) => {
                             }
                         </View>
                         <View>
-                            <Text style={styles.title}>Razem {cost} </Text>
+                            <Text style={styles.title}>Razem {cost} zł</Text>
+                        </View>
+                        <View>
+                            {
+                                isLogged && discountIsEnabled ?
+                                    discountIsActive ?
+                                        <>
+                                            <Text style={styles.tableTitle}>Wykorzystano obniżkę: {discountPercentage * 100}% </Text>
+                                            <Text style={styles.tableTitle}>Poprzednia cena: {oldCost} zł</Text>
+                                            <Text style={styles.tableTitle}>Zaoszczędzono: {(oldCost - cost).toFixed(2)} zł</Text>
+
+                                        </> :
+                                        <>
+                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało {ordersRequired-(ordersCount%ordersRequired)}</Text>
+                                        </>:
+                                    <>
+                                        <Text style={styles.tableTitle}>Zaloguj się by korzystać ze zniżek</Text>
+                                    </>
+                            }
                         </View>
                     </>
                     : <Text style={styles.title}>Koszyk jest pusty</Text>

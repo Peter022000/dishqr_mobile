@@ -9,7 +9,7 @@ export const acceptOrder = () => async (dispatch, getState) => {
         let body = JSON.stringify({
             tableNoId: state.cart.tableNoId,
             cost: state.cart.cost,
-            order: state.cart.dishes,
+            orderDishesDto: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
 
 
@@ -62,27 +62,30 @@ export const addToCart = (dishId, fromType) => async (dispatch, getState) => {
     try {
         const state = getState();
 
+        const token = state.auth.token;
+
         let body = JSON.stringify({
             tableNoId: state.cart.tableNoId,
             cost: state.cart.cost,
-            order: state.cart.dishes,
+            orderDishesDto: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
 
         const response = await axios.post('http://192.168.1.2:8080/order/addToOrder?dishId=' + dishId, body, {
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
         });
 
         const data = response.data;
 
-        const newDish = data.order.find(item => item.dish.id === dishId);
+        const newDish = data.orderDishesDto.find(item => item.dishDto.id === dishId);
 
         if(fromType === "fromMenu"){
             Toast.show({
                 type: 'success',
                 text1: 'Dodano do koszyka',
-                text2: newDish.dish.name + ' x' + newDish.quantity
+                text2: newDish.dishDto.name + ' x' + newDish.quantity
             })
         }
 
@@ -109,12 +112,15 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
         let body = JSON.stringify({
             tableNoId: state.cart.tableNoId,
             cost: state.cart.cost,
-            order: state.cart.dishes,
+            orderDishesDto: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
+
+        const token = state.auth.token;
 
         const response = await axios.post('http://192.168.1.2:8080/order/removeFromOrder?dishId=' + dishId, body, {
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
         });
 
