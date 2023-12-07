@@ -12,6 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addToCart } from '../actions/cartActions';
 import axios from 'axios';
+import {isExpired} from '../actions/authAction';
 
 const Menu = (props) => {
 
@@ -56,6 +57,7 @@ const Menu = (props) => {
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
             let a = getDishes();
+            dispatch(isExpired())
         });
     }, [props.navigation]);
 
