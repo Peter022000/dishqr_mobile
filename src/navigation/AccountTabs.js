@@ -9,7 +9,6 @@ import OrderHistory from '../screens/OrderHistory';
 import LogOut from '../screens/LogOut';
 import {isExpired} from '../actions/authAction';
 import OrderDetails from '../screens/OrderDetails';
-import Recomendation from '../screens/Recommendation';
 import Recommendation from '../screens/Recommendation';
 
 const AccountTabs = (props) => {

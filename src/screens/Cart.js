@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,12 +7,9 @@ import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../acti
 import axios from 'axios';
 import CustomButton from '../components/CustomButton';
 import {isExpired} from '../actions/authAction';
-import AccountTabs from '../navigation/AccountTabs';
-import {ACCEPT_ORDER, CLEAR} from '../types/cartTypes';
+import {CLEAR} from '../types/cartTypes';
 
 const Cart = (props) => {
-
-
 
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');

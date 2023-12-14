@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
     ActivityIndicator,
-    Button, Image,
+    Image,
     RefreshControl,
     ScrollView,
     StyleSheet,
@@ -9,14 +9,10 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import CustomButton from '../components/CustomButton';
-import Dialog from 'react-native-dialog';
 import {useDispatch, useSelector} from 'react-redux';
-import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
-import {addToCart, savePaymentMethod} from '../actions/cartActions';
+import {addToCart} from '../actions/cartActions';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
-import {isExpired} from '../actions/authAction';
 
 const Recommendation = (props) => {
     const [dishes, setDishes] = useState([]);

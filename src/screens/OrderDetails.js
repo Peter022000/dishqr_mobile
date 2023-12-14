@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
-import {useDispatch, useSelector} from 'react-redux';
-import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
-import {addToCart, savePaymentMethod} from '../actions/cartActions';
+import {useDispatch} from 'react-redux';
+import {CLEAR} from '../types/cartTypes';
+import {addToCart} from '../actions/cartActions';
 
 const OrderDetails = (props) => {
     const [order, setOrder] = useState([]);
