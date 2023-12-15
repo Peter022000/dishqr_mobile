@@ -33,6 +33,7 @@ const Recommendation = (props) => {
                 },
             });
             setDishes(response.data);
+            setExpandedDishIndex(null)
         } catch (error) {
             Toast.show({
                 type: 'error',

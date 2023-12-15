@@ -2,7 +2,7 @@ import {ACCEPT_ORDER, ADD_TO_CART, CLEAR, REMOVE_FROM_CART, SAVE_PAYMENT_METHOD}
 
 const initialState = {
     dishes: [],
-    tableNoId: '6474c9699998a17581e0ec47',
+    tableNoId: '6576b67b0d86b15e669bff3f',
     paymentMethod: null,
     cost: '',
     discount: []

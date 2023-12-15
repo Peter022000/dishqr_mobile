@@ -51,15 +51,15 @@ const OrderHistory = (props) => {
                 <ActivityIndicator />
             ) : (
             <View>
-                {orderHistory.length !== 0 ?
+                {orderHistory?.length !== 0 ?
                     <>
-                        {orderHistory.map((order, index) => (
+                        {orderHistory?.map((order, index) => (
                             <TouchableOpacity key={index} style={styles.dishContainer}
                                               onPress={() => {props.navigation.navigate('OrderDetails',{order})}}>
                                 <Text style={styles.title2}>Zamówienie {index+1}</Text>
                                 <View style={styles.dishDescription}>
                                     <Text style={styles.dishName}>
-                                        {order.order.map(item => item.dish.name).join(', ')}
+                                        {order.orderDishesDto.map(item => item.dishDto.name).join(', ')}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

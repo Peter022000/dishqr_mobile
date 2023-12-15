@@ -84,18 +84,18 @@ const OrderDetails = (props) => {
                 />
             </View>
 
-            {allDishesExpanded && order.order?.map((dish, index) => {
+            {allDishesExpanded && order.orderDishesDto?.map((dish, index) => {
                 const isDishExpanded = expandedDishIndex === index;
                 return (
                     // <TouchableOpacity key={index} onPress={() => toggleDishExpansion(index)}>
                         <View key={index} style={styles.dishContainer}>
-                            <Text style={styles.dishName}>{dish.dish.name}</Text>
+                            <Text style={styles.dishName}>{dish.dishDto.name}</Text>
                             {/*{isDishExpanded && (*/}
                                 <View style={styles.dishDescription}>
-                                    <Text style={styles.dishInformation}>Składniki: {dish.dish.ingredients.join(', ')}</Text>
-                                    <Text style={styles.dishInformation}>Cena: {dish.dish.price} zł</Text>
+                                    <Text style={styles.dishInformation}>Składniki: {dish.dishDto.ingredients.join(', ')}</Text>
+                                    <Text style={styles.dishInformation}>Cena: {dish.dishDto.price} zł</Text>
                                     <Text style={styles.dishInformation}>Ilość: {dish.quantity}</Text>
-                                    <Text style={styles.dishInformation}>Koszt: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                    <Text style={styles.dishInformation}>Koszt: {(dish.dishDto.price * dish.quantity).toFixed(2)} zł</Text>
                                 </View>
                             {/*)}*/}
                         </View>
