@@ -86,11 +86,14 @@ const Cart = (props) => {
     };
 
     const validate = () => {
-        dispatch(isExpired());
-        if(!isLogged){
-            dispatch({
-                type: CLEAR
-            });
+        if(isLogged){
+            dispatch(isExpired());
+
+            if(!isLogged){
+                dispatch({
+                    type: CLEAR
+                });
+            }
         } else if(cart.length === 0) {
             Toast.show({
                 type: 'error',
