@@ -94,7 +94,8 @@ const Cart = (props) => {
                     type: CLEAR
                 });
             }
-        } else if(cart.length === 0) {
+        }
+        if(cart.length === 0) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
