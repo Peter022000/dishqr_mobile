@@ -5,9 +5,7 @@ import Cart from '../screens/Cart';
 import Home from '../screens/Home';
 import Scanner from '../screens/Scanner';
 import AccountTabs from './AccountTabs';
-import {useDispatch, useSelector} from 'react-redux';
 import React from 'react';
-import {isExpired} from '../actions/authAction';
 
 const Tab = createBottomTabNavigator();
 

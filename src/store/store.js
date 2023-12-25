@@ -1,7 +1,6 @@
 import cartReducer from "../reducer/cartReducer";
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
-import { persistStore } from 'redux-persist';
+import {FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import authReducerPersisted from '../reducer/authReducerPersisted';
 
 
@@ -10,7 +9,12 @@ const store = configureStore({
         cart: cartReducer,
         auth: authReducerPersisted
     },
-    middleware: [thunk],
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        })
 });
 
 const persistor = persistStore(store);

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {SafeAreaView, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView, ScrollView, Text} from 'react-native';
 import InputField from '../components/InputField';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../components/CustomButton';
 import {useDispatch} from 'react-redux';

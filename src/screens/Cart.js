@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 import Dialog from "react-native-dialog";
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,11 +7,9 @@ import {acceptOrder, addToCart, removeFromCart, savePaymentMethod} from '../acti
 import axios from 'axios';
 import CustomButton from '../components/CustomButton';
 import {isExpired} from '../actions/authAction';
-import AccountTabs from '../navigation/AccountTabs';
+import {CLEAR} from '../types/cartTypes';
 
 const Cart = (props) => {
-
-
 
     const [visible, setVisible] = useState(false);
     const [tableNumber, setTableNumber] = useState('');
@@ -88,26 +86,34 @@ const Cart = (props) => {
     };
 
     const validate = () => {
-        dispatch(isExpired());
+        if(isLogged){
+            dispatch(isExpired());
+
+            if(!isLogged){
+                dispatch({
+                    type: CLEAR
+                });
+            }
+        }
         if(cart.length === 0) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Koszyk jest pusty',
             });
-        }else if(paymentMethod === '' || paymentMethod === null) {
+        } else if(paymentMethod === '' || paymentMethod === null) {
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Brak metody płatności',
             });
-        }else if(tableNumber === ''){
+        } else if(tableNumber === ''){
             Toast.show({
                 type: 'error',
                 text1: 'Niepoprawne zamówienie',
                 text2: 'Brak numeru stolika',
             });
-        }else{
+        } else {
             showDialog();
         }
     }
@@ -163,7 +169,14 @@ const Cart = (props) => {
 
                                         </> :
                                         <>
-                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało {ordersRequired-(ordersCount%ordersRequired)}</Text>
+                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało
+                                            {
+                                                ordersRequired-(ordersCount%ordersRequired) === 1 ?
+                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienie</Text>
+                                                    :
+                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienia</Text>
+                                            }
+                                            </Text>
                                         </>:
                                     <>
                                         <Text style={styles.tableTitle}>Zaloguj się by korzystać ze zniżek</Text>

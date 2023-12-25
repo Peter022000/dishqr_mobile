@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
-import {useDispatch, useSelector} from 'react-redux';
-import {ACCEPT_ORDER, ADD_TO_CART, CLEAR} from '../types/cartTypes';
-import {addToCart, savePaymentMethod} from '../actions/cartActions';
+import {useDispatch} from 'react-redux';
+import {CLEAR} from '../types/cartTypes';
+import {addToCart} from '../actions/cartActions';
 
 const OrderDetails = (props) => {
     const [order, setOrder] = useState([]);
@@ -15,15 +15,10 @@ const OrderDetails = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(props.route.params.order.orderDiscount.isUsed)
         return props.navigation.addListener("focus", () => {
             setOrder(props.route.params.order);
         });
     }, [props.navigation]);
-
-    useEffect(() => {
-        console.log(order?.orderDiscount?.isUsed)
-    }, [order]);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
@@ -48,10 +43,10 @@ const OrderDetails = (props) => {
         dispatch({
             type: CLEAR
         });
-
-        for (const dish of order.order) {
+        
+        for (const dish of order.orderDishesDto) {
             for (let i = 0; i < dish.quantity; i++) {
-                await dispatch(addToCart(dish.dish.id, "cart"));
+                await dispatch(addToCart(dish.dishDto.id, "cart"));
             }
         }
         props.navigation.navigate("Cart");
@@ -89,18 +84,18 @@ const OrderDetails = (props) => {
                 />
             </View>
 
-            {allDishesExpanded && order.order?.map((dish, index) => {
+            {allDishesExpanded && order.orderDishesDto?.map((dish, index) => {
                 const isDishExpanded = expandedDishIndex === index;
                 return (
                     // <TouchableOpacity key={index} onPress={() => toggleDishExpansion(index)}>
                         <View key={index} style={styles.dishContainer}>
-                            <Text style={styles.dishName}>{dish.dish.name}</Text>
+                            <Text style={styles.dishName}>{dish.dishDto.name}</Text>
                             {/*{isDishExpanded && (*/}
                                 <View style={styles.dishDescription}>
-                                    <Text style={styles.dishInformation}>Składniki: {dish.dish.ingredients.join(', ')}</Text>
-                                    <Text style={styles.dishInformation}>Cena: {dish.dish.price} zł</Text>
+                                    <Text style={styles.dishInformation}>Składniki: {dish.dishDto.ingredients.join(', ')}</Text>
+                                    <Text style={styles.dishInformation}>Cena: {dish.dishDto.price} zł</Text>
                                     <Text style={styles.dishInformation}>Ilość: {dish.quantity}</Text>
-                                    <Text style={styles.dishInformation}>Koszt: {(dish.dish.price * dish.quantity).toFixed(2)} zł</Text>
+                                    <Text style={styles.dishInformation}>Koszt: {(dish.dishDto.price * dish.quantity).toFixed(2)} zł</Text>
                                 </View>
                             {/*)}*/}
                         </View>

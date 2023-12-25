@@ -87,7 +87,8 @@ const Menu = (props) => {
                             />
                         </TouchableOpacity>
                     </View>
-                ))}
+                ))
+            }
         </View>
     );
 

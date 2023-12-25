@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const OrderHistory = (props) => {
 
@@ -19,6 +19,7 @@ const OrderHistory = (props) => {
 
     useEffect(() => {
         return props.navigation.addListener("focus", () => {
+            setLoading(true);
             let a = getOrderHistory();
         });
     }, [props.navigation]);
@@ -50,15 +51,15 @@ const OrderHistory = (props) => {
                 <ActivityIndicator />
             ) : (
             <View>
-                {orderHistory.length !== 0 ?
+                {orderHistory?.length !== 0 ?
                     <>
-                        {orderHistory.map((order, index) => (
+                        {orderHistory?.map((order, index) => (
                             <TouchableOpacity key={index} style={styles.dishContainer}
                                               onPress={() => {props.navigation.navigate('OrderDetails',{order})}}>
                                 <Text style={styles.title2}>Zamówienie {index+1}</Text>
                                 <View style={styles.dishDescription}>
                                     <Text style={styles.dishName}>
-                                        {order.order.map(item => item.dish.name).join(', ')}
+                                        {order.orderDishesDto.map(item => item.dishDto.name).join(', ')}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

@@ -1,9 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import Tabs from './navigation/Tabs';
+import Tabs from './src/navigation/Tabs';
 import {Provider} from 'react-redux';
-import {persistor, store} from './store/store';
+import {persistor, store} from './src/store/store';
 import Toast, {BaseToast, ErrorToast, InfoToast} from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
 
