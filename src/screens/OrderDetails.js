@@ -43,10 +43,10 @@ const OrderDetails = (props) => {
         dispatch({
             type: CLEAR
         });
-
-        for (const dish of order.order) {
+        
+        for (const dish of order.orderDishesDto) {
             for (let i = 0; i < dish.quantity; i++) {
-                await dispatch(addToCart(dish.dish.id, "cart"));
+                await dispatch(addToCart(dish.dishDto.id, "cart"));
             }
         }
         props.navigation.navigate("Cart");

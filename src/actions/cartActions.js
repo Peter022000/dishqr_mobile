@@ -12,7 +12,6 @@ export const acceptOrder = () => async (dispatch, getState) => {
             orderDishesDto: state.cart.dishes,
             paymentMethod: state.cart.paymentMethod});
 
-
         const isLogged = state.auth.isLogged;
 
         if(isLogged) {
