@@ -140,4 +140,3 @@ export const removeFromCart = (dishId) => async (dispatch, getState) => {
         console.error('Error while removing from cart:', error);
     }
 };
-

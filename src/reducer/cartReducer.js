@@ -1,4 +1,11 @@
-import {ACCEPT_ORDER, ADD_TO_CART, CLEAR, REMOVE_FROM_CART, SAVE_PAYMENT_METHOD} from '../types/cartTypes';
+import {
+    ACCEPT_ORDER,
+    ADD_TO_CART,
+    CLEAR, CLEAR_DISHES,
+    REMOVE_FROM_CART,
+    SAVE_PAYMENT_METHOD,
+    SAVE_QR_CODE,
+} from '../types/cartTypes';
 
 const initialState = {
     dishes: [],
@@ -28,6 +35,16 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 paymentMethod: action.payload.data,
+            };
+        case CLEAR_DISHES:
+            return {
+                ...state,
+                dishes: [],
+            };
+        case SAVE_QR_CODE:
+            return {
+                ...state,
+                tableNoId: action.payload.data,
             };
         default:
             return state;

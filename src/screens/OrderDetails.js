@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Dialog from 'react-native-dialog';
 import {useDispatch} from 'react-redux';
-import {CLEAR} from '../types/cartTypes';
+import {CLEAR, CLEAR_DISHES} from '../types/cartTypes';
 import {addToCart} from '../actions/cartActions';
 
 const OrderDetails = (props) => {
@@ -21,7 +21,7 @@ const OrderDetails = (props) => {
     }, [props.navigation]);
 
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
+        const options = { year: 'numeric',month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
         const formattedDate = new Date(dateString).toLocaleString(undefined, options);
         return formattedDate.replace(/\//g, '.');
     }
@@ -41,9 +41,9 @@ const OrderDetails = (props) => {
 
     const redoOrder = async () => {
         dispatch({
-            type: CLEAR
+            type: CLEAR_DISHES
         });
-        
+
         for (const dish of order.orderDishesDto) {
             for (let i = 0; i < dish.quantity; i++) {
                 await dispatch(addToCart(dish.dishDto.id, "cart"));

@@ -5,12 +5,14 @@ import { Camera } from 'react-native-vision-camera';
 import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
 import { useDispatch } from 'react-redux';
 import Toast from 'react-native-toast-message';
+import {REMOVE_FROM_CART, SAVE_QR_CODE} from '../types/cartTypes';
 
 const Scanner = (props) => {
     const [hasPermission, setHasPermission] = useState(false);
     const [scanActive, setScanActive] = useState(true);
     const [error, setError] = useState(false);
     const [qrCode, setQrCode] = useState('');
+    const [qrCodeShow, setQrCodeShow] = useState('');
     const devices = useCameraDevices();
     const device = devices.back;
     const dispatch = useDispatch();
@@ -43,7 +45,6 @@ const Scanner = (props) => {
         });
     }, [props.navigation]);
 
-    //todo zabezpieczyć przed złym kodem qr
     const getValue = async (id) => {
         try {
             const response = await fetch('http://192.168.1.2:8080/qrCode/getValue/'+id, {
@@ -52,7 +53,8 @@ const Scanner = (props) => {
 
             if(response.ok) {
                 const json = await response.json();
-                setQrCode(json.qrCode);
+                setQrCode(id);
+                setQrCodeShow(json.qrCode);
             } else {
                 setScanActive(false);
                 setError(true);
@@ -65,12 +67,17 @@ const Scanner = (props) => {
 
 
     const handleConfirmCode = () => {
-        dispatch(setTableNumber(qrCode));
+        dispatch({
+            type: SAVE_QR_CODE,
+            payload: {
+                data: qrCode
+            },
+        });
+
         Toast.show({
             type: 'success',
             text1: 'Kod QR zrealizowany',
         });
-        // Dodaj tutaj inne akcje, które mają być wykonywane po zatwierdzeniu kodu
     };
 
     const handleRepeatScan = () => {
@@ -121,7 +128,7 @@ const Scanner = (props) => {
         return (
             <View style={styles.scannedCodeContainer}>
                 <Text style={styles.scannedCode}>Numer stolika</Text>
-                <Text style={styles.scannedCode}>{qrCode}</Text>
+                <Text style={styles.scannedCode}>{qrCodeShow}</Text>
                 <TouchableOpacity
                     style={styles.confirmButton}
                     onPress={handleConfirmCode}

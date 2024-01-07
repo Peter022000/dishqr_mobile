@@ -68,6 +68,8 @@ const Cart = (props) => {
                         text1: 'Nie udało się pobrać numeru stolika',
                     });
                 }
+            } else if (tableNumberId === '') {
+                setTableNumber('');
             }
         };
 
@@ -169,13 +171,8 @@ const Cart = (props) => {
 
                                         </> :
                                         <>
-                                            <Text style={styles.tableTitle}>Do kolejnej obniżki zostało
-                                            {
-                                                ordersRequired-(ordersCount%ordersRequired) === 1 ?
-                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienie</Text>
-                                                    :
-                                                    <Text style={styles.tableTitle}> {ordersRequired-(ordersCount%ordersRequired)} zamówienia</Text>
-                                            }
+                                            <Text style={styles.tableTitle}>
+                                                Liczba zamówień do kolejnej obniżki: {ordersRequired-(ordersCount%ordersRequired)}
                                             </Text>
                                         </>:
                                     <>
@@ -205,7 +202,7 @@ const Cart = (props) => {
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Zamówienie</Dialog.Title>
                 <Dialog.Description>
-                    Czy na pewno chcesz złożyć zamówienie
+                    Czy na pewno chcesz złożyć zamówienie?
                 </Dialog.Description>
                 <Dialog.Button label="Anuluj" onPress={handleCancel} />
                 <Dialog.Button label="Złóż" onPress={handleSend} />
