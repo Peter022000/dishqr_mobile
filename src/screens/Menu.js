@@ -55,7 +55,7 @@ const Menu = (props) => {
 
 
     useEffect(() => {
-        return props.navigation.addListener("focus", () => {
+        return props?.navigation?.addListener("focus", () => {
             let a = getDishes();
             dispatch(isExpired())
         });

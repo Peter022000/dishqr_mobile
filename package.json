@@ -41,6 +41,7 @@
     "@babel/preset-env": "7.20.2",
     "@babel/runtime": "7.21.0",
     "@react-native-community/eslint-config": "3.2.0",
+    "@testing-library/react-native": "^12.4.3",
     "@tsconfig/react-native": "2.0.3",
     "@types/jest": "29.4.0",
     "@types/react": "18.0.28",
@@ -54,7 +55,23 @@
     "typescript": "4.8.4"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@react-native|react-native|react-navigation|@react-navigation)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx",
+      "node"
+    ],
+    "fakeTimers": {
+      "enableGlobally": true
+    },
+    "verbose": true,
+    "clearMocks": true
   },
   "resolutions": {
     "@types/react": "17.0.2",

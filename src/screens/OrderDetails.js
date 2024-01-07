@@ -15,7 +15,7 @@ const OrderDetails = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        return props.navigation.addListener("focus", () => {
+        return props?.navigation?.addListener("focus", () => {
             setOrder(props.route.params.order);
         });
     }, [props.navigation]);

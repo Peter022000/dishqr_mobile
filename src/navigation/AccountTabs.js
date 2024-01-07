@@ -20,7 +20,7 @@ const AccountTabs = (props) => {
     const isLogged = useSelector((state) => state.auth.isLogged);
 
     React.useEffect(() => {
-        return props.navigation.addListener('focus', () => {
+        return props?.navigation?.addListener('focus', () => {
             dispatch(isExpired());
             if (isLogged) {
                 props.navigation.navigate('AccountHome');
