@@ -13,9 +13,9 @@ const Scanner = (props) => {
     const [error, setError] = useState(false);
     const [qrCode, setQrCode] = useState('');
     const [qrCodeShow, setQrCodeShow] = useState('');
+    const dispatch = useDispatch();
     const devices = useCameraDevices();
     const device = devices.back;
-    const dispatch = useDispatch();
 
     const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
         checkInverted: true,
